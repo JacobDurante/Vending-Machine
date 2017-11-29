@@ -1,0 +1,7 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  "../../../VendingMachine.srcs/sources_1/new/7segmentdisplay.vhd"
+vhdl xil_defaultlib  "../../../VendingMachine.srcs/sources_1/new/KYPD.vhd"
+vhdl xil_defaultlib  "../../../VendingMachine.srcs/sources_1/new/Machine.vhd"
+
+# Do not sort compile order
+nosort
