@@ -32,7 +32,8 @@ use IEEE.NUMERIC_STD.ALL;
 --use UNISIM.VComponents.all;
 
 entity SevenSegmentDisplay is
-    Port ( Price   : in STD_LOGIC_VECTOR (15 downto 0);
+    Port ( InputPrice : in signed (8 downto 0); 
+           --Price   : in STD_LOGIC_VECTOR (15 downto 0);
            --Digit0 : in std_Logic_vector (3 downto 0);
            --Digit1 : in std_logic_vector (3 downto 0);
            --Digit2 : in std_logic_vector (3 downto 0);
@@ -44,6 +45,7 @@ entity SevenSegmentDisplay is
 end SevenSegmentDisplay;
 
 architecture Behavioral of SevenSegmentDisplay is
+    signal Price   : STD_LOGIC_VECTOR (15 downto 0);
     signal Digit3, Digit2, Digit1, Digit0 : std_logic_vector (3 downto 0);
     signal CLK_240 : std_logic := '0';
 begin

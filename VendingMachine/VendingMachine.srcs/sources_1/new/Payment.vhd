@@ -32,36 +32,43 @@ use IEEE.NUMERIC_STD.ALL;
 --use UNISIM.VComponents.all;
 
 entity Payment is
-    Port ( Money  : in std_logic_vector (3 downto 0); -- 3 is Dollars, 2 is Quarters, 1 is Dimes, 0 is Nickles
-           Change : out signed (8 downto 0));
+    Port ( Money       : in std_logic_vector (3 downto 0); -- 3 is Dollars, 2 is Quarters, 1 is Dimes, 0 is Nickles
+           Paid        : out signed (8 downto 0);
+           Change      : out signed (8 downto 0));
 end Payment;
 
 architecture Behavioral of Payment is
-    signal Dollar : signed (8 downto 0) := "001100100"; -- 001100100 = 100
+    signal Dollar  : signed (8 downto 0) := "001100100"; -- 001100100 = 100
     signal Quarter : signed (8 downto 0) := "000011001"; -- 000011001 = 25
-    signal Dime : signed (8 downto 0) := "000001010"; -- 000001010 = 10
-    signal Nickle : signed ( 8 downto 0) := "000000101"; -- 000000101 = 5
-    signal Price : signed (8 downto 0) := "010010110"; -- assign fixed price of $1.50, 010010110 = 150
+    signal Dime    : signed (8 downto 0) := "000001010"; -- 000001010 = 10
+    signal Nickle  : signed (8 downto 0) := "000000101"; -- 000000101 = 5
+    signal Price   : signed (8 downto 0) := "010010110"; -- assign fixed price of $1.50, 010010110 = 150
 begin
     
     Payment : process (Money) 
-        variable Difference : signed (8 downto 0) := "010010110"; -- default difference is the price
+        variable Pay        : signed (8 downto 0) := "000000000"; -- Amount that has been paid
         begin
             case (Money) is
                 when "0000" => -- no Payment being made
-                    Difference := Difference; -- stores the output
+                    Pay        := Pay; -- stores the amount paid
                 when "1000" => -- paying a dollar
-                    Difference := Difference - Dollar;
+                    Pay        := Pay + Dollar;
                 when "0100" => -- paying a quarter
-                    Difference := Difference - Quarter;
+                    Pay        := Pay + Quarter;
                 when "0010" => -- paying a Dime
-                    Difference := Difference - Dime;
+                    Pay        := Pay + Dime;
                 when "0001" => -- paying a Nickle
-                    Difference := Difference - Nickle;
+                    Pay        := Pay + Nickle;
                 when others => -- dealling with other cases
-                    Difference := Difference;
+                    Pay        := Pay;
             end case;
-            Change <= Difference;
+        if (Pay < Price) then
+            Change <= Pay;
+        elsif (Pay = Price) then
+            Change <= "000000000";
+        elsif (Pay > Price) then
+            Change <= Price - Pay;
+        end if;
+        Paid <= Pay;
     end process;
-
 end Behavioral;
