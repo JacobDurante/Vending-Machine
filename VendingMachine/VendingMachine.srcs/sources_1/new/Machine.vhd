@@ -171,6 +171,7 @@ begin
                     if (count = "00001000111100110001110000000110") then
                         NS <= "11";
                         Selection <= SelectedChoice;
+                        count := "00000000000000000000000000000000";
                     else
                         count := count + 1;
                         NS <= "10";
@@ -180,6 +181,7 @@ begin
                 if (count = "00001000111100110001110000000110") then
                     NS <= "00";
                     Change <= ChangeBack;
+                    count := "00000000000000000000000000000000";
                 else
                     count := count + 1;
                     NS <= "11";

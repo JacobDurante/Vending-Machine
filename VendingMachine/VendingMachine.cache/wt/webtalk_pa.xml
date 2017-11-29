@@ -3,7 +3,7 @@
 <!--The data in this file is primarily intended for consumption by Xilinx tools.
 The structure and the elements are likely to change over the next few releases.
 This means code written to parse this file will need to be revisited each subsequent release.-->
-<application name="pa" timeStamp="Wed Nov 29 12:17:26 2017">
+<application name="pa" timeStamp="Wed Nov 29 14:20:40 2017">
 <section name="Project Information" visible="false">
 <property name="ProjectID" value="a489ab28ca9f4476b025ea583771f02e" type="ProjectID"/>
 <property name="ProjectIteration" value="1" type="ProjectIteration"/>
@@ -23,22 +23,26 @@ This means code written to parse this file will need to be revisited each subseq
 <property name="RunSchematic" value="5" type="JavaHandler"/>
 <property name="RunSynthesis" value="2" type="JavaHandler"/>
 <property name="SetTopNode" value="2" type="JavaHandler"/>
+<property name="ShowView" value="1" type="JavaHandler"/>
 <property name="SimulationRun" value="1" type="JavaHandler"/>
-<property name="ToggleViewNavigator" value="7" type="JavaHandler"/>
-<property name="ViewTaskRTLAnalysis" value="1" type="JavaHandler"/>
+<property name="ToggleViewNavigator" value="10" type="JavaHandler"/>
+<property name="ViewTaskRTLAnalysis" value="7" type="JavaHandler"/>
+<property name="ZoomFit" value="1" type="JavaHandler"/>
+<property name="ZoomIn" value="2" type="JavaHandler"/>
 </item>
 <item name="Gui Resources Info">
 <property name="AddSrcWizard_SPECIFY_HDL_NETLIST_BLOCK_DESIGN" value="1" type="GuiResourceData"/>
 <property name="AddSrcWizard_SPECIFY_SIMULATION_SPECIFIC_HDL_FILES" value="1" type="GuiResourceData"/>
 <property name="BaseDialog_CANCEL" value="1" type="GuiResourceData"/>
-<property name="BaseDialog_OK" value="19" type="GuiResourceData"/>
+<property name="BaseDialog_OK" value="25" type="GuiResourceData"/>
+<property name="CmdMsgDialog_MESSAGES" value="9" type="GuiResourceData"/>
 <property name="CmdMsgDialog_OK" value="1" type="GuiResourceData"/>
 <property name="ConfirmSaveTextEditsDialog_NO" value="2" type="GuiResourceData"/>
 <property name="CreateSrcFileDialog_FILE_NAME" value="8" type="GuiResourceData"/>
 <property name="DefineModulesDialog_DEFINE_MODULES_AND_SPECIFY_IO_PORTS" value="64" type="GuiResourceData"/>
 <property name="DefineModulesDialog_ENTITY_NAME" value="1" type="GuiResourceData"/>
-<property name="FileSetPanel_FILE_SET_PANEL_TREE" value="73" type="GuiResourceData"/>
-<property name="FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE" value="27" type="GuiResourceData"/>
+<property name="FileSetPanel_FILE_SET_PANEL_TREE" value="88" type="GuiResourceData"/>
+<property name="FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE" value="37" type="GuiResourceData"/>
 <property name="GettingStartedView_OPEN_PROJECT" value="1" type="GuiResourceData"/>
 <property name="HInputHandler_TOGGLE_LINE_COMMENTS" value="1" type="GuiResourceData"/>
 <property name="MainMenuMgr_FILE" value="6" type="GuiResourceData"/>
@@ -48,24 +52,26 @@ This means code written to parse this file will need to be revisited each subseq
 <property name="PACommandNames_OPEN_PROJECT" value="1" type="GuiResourceData"/>
 <property name="PACommandNames_SET_AS_TOP" value="2" type="GuiResourceData"/>
 <property name="PACommandNames_SIMULATION_RUN_BEHAVIORAL" value="1" type="GuiResourceData"/>
-<property name="PACommandNames_TOGGLE_VIEW_NAV" value="7" type="GuiResourceData"/>
-<property name="PAViews_CODE" value="5" type="GuiResourceData"/>
+<property name="PACommandNames_TOGGLE_VIEW_NAV" value="10" type="GuiResourceData"/>
+<property name="PACommandNames_ZOOM_FIT" value="1" type="GuiResourceData"/>
+<property name="PACommandNames_ZOOM_IN" value="2" type="GuiResourceData"/>
+<property name="PAViews_CODE" value="8" type="GuiResourceData"/>
 <property name="PAViews_SCHEMATIC" value="5" type="GuiResourceData"/>
-<property name="PlanAheadTab_SHOW_FLOW_NAVIGATOR" value="6" type="GuiResourceData"/>
-<property name="ProjectTab_RELOAD" value="5" type="GuiResourceData"/>
+<property name="PlanAheadTab_SHOW_FLOW_NAVIGATOR" value="8" type="GuiResourceData"/>
+<property name="ProjectTab_RELOAD" value="6" type="GuiResourceData"/>
 <property name="RDICommands_DELETE" value="4" type="GuiResourceData"/>
-<property name="RDICommands_SAVE_FILE" value="49" type="GuiResourceData"/>
+<property name="RDICommands_SAVE_FILE" value="57" type="GuiResourceData"/>
 <property name="RDICommands_UNDO" value="5" type="GuiResourceData"/>
 <property name="RemoveSourcesDialog_ALSO_DELETE" value="1" type="GuiResourceData"/>
 <property name="SrcChooserPanel_CREATE_FILE" value="8" type="GuiResourceData"/>
 <property name="SrcMenu_IP_HIERARCHY" value="9" type="GuiResourceData"/>
 <property name="SrcMenu_REFRESH_HIERARCHY" value="1" type="GuiResourceData"/>
-<property name="SyntheticaGettingStartedView_RECENT_PROJECTS" value="1" type="GuiResourceData"/>
+<property name="SyntheticaGettingStartedView_RECENT_PROJECTS" value="3" type="GuiResourceData"/>
 </item>
 <item name="Other">
-<property name="GuiMode" value="53" type="GuiMode"/>
+<property name="GuiMode" value="56" type="GuiMode"/>
 <property name="BatchMode" value="0" type="BatchMode"/>
-<property name="TclMode" value="44" type="TclMode"/>
+<property name="TclMode" value="47" type="TclMode"/>
 </item>
 </section>
 </application>

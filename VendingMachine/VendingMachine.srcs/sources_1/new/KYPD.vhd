@@ -103,19 +103,19 @@ begin
                     NoButton    <= '0';
                 when "10000001" => 
                     ButtonSig   <= "0000"; -- Button 0
-                    Valid       <= '1';
+                    Valid       <= '0'; -- set to 0 for this machine since we are limiting the inputs
                     NoButton    <= '0';
                 when "10000010" => 
                     ButtonSig   <= "1111"; -- Button F
-                    Valid       <= '1';
+                    Valid       <= '1'; -- set to 0 for this machine since we are limiting the inputs
                     NoButton    <= '0';
                 when "10000100" => 
                     ButtonSig   <= "1110"; -- Button E
-                    Valid       <= '1';
+                    Valid       <= '0'; -- set to 0 for this machine since we are limiting the inputs
                     NoButton    <= '0';
                 when "10001000" => 
                     ButtonSig   <= "1101"; -- Button D
-                    Valid       <= '1';
+                    Valid       <= '0'; -- set to 0 for this machine since we are limiting the inputs
                     NoButton    <= '0';
                 when others     => 
                     ButtonSig   <= "0000"; -- This value for button does not matter since it is not a valid input
@@ -133,7 +133,5 @@ begin
                 Button <= ButtonSig; -- Button will store the value
             end if; -- if valid = 0 then Button will retain its value
         end if;  
-    end process;
-                    
-    
+    end process;   
 end Behavioral;
