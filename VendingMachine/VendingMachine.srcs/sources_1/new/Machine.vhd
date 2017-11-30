@@ -36,9 +36,7 @@ entity Machine is -- Top level state machine
            CLK            : in std_logic;
            RequestChange  : in std_logic; -- Change is an asynchronous reset
            MoneyIn        : in std_logic_vector (3 downto 0); -- money inputed, 3 is Dollar, 2 is Quarter, 1 is Dime, 0 is Nickle
-           Change         : out signed (8 downto 0); -- amount that you have paid or change back
            DP             : out std_Logic; -- Decimal Point
-           Selection      : out std_logic_vector (7 downto 0); -- section for vending machine, 7-4 is Row, 3-0 is Col
            Anode          : out STD_LOGIC_VECTOR (3 downto 0);
            Cathode        : out STD_LOGIC_VECTOR (6 downto 0));
            
@@ -51,6 +49,8 @@ architecture Behavioral of Machine is
     Signal Button     : std_logic_vector (3 downto 0);
     Signal StartBus   : std_logic;
     Signal EndBus     : std_logic;
+    Signal Selection  : std_logic_vector (7 downto 0); -- selection for vending machine, 7-4 is Row, 3-0 is Col
+    Signal  Change    : signed (8 downto 0); -- amount that you have paid or change back
     signal Paid       : signed (8 downto 0); -- amount that has been paid
     signal Price      : signed (8 downto 0) := "010010110"; -- assign fixed price of $1.50, 010010110 = 1500
     Signal ChangeBack : signed (8 downto 0); -- signal for the Change
@@ -92,7 +92,7 @@ begin
         
     -- Ports the SevenSegmentDisplay module, sending the selection and Difference in Price    
     Display : SevenSegmentDisplay port map ( -- This Will need to be updated
-        InputPrice   => Price,
+        InputPrice   => ChangeBack,
         CLK     => CLK,
         DP      => DP,
         Anode   => Anode,
@@ -111,7 +111,7 @@ begin
     begin
         case (PS) is
             when "00" => -- state 0
-                case (MoneyIn) is 
+                case (MoneyIn) is
                     when "0000" => NS <= "00";
                     when "0001" => NS <= "01";
                     when "0010" => NS <= "01";

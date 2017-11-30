@@ -65,7 +65,7 @@ begin
                     ButtonSig   <= "0011"; -- Button 3
                     Valid       <= '1';
                     NoButton    <= '0';
-                 when "00011000" => 
+                when "00011000" => 
                     ButtonSig   <= "1010"; -- Button A
                     Valid       <= '1';
                     NoButton    <= '0';
