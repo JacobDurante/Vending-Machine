@@ -33,6 +33,7 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity Payment is
     Port ( Money       : in std_logic_vector (3 downto 0); -- 3 is Dollars, 2 is Quarters, 1 is Dimes, 0 is Nickles
+           RSTPay      : in signed (8 downto 0);
            Paid        : out signed (8 downto 0);
            Change      : out signed (8 downto 0));
 end Payment;
@@ -46,7 +47,7 @@ architecture Behavioral of Payment is
 begin
     
     Payment : process (Money) 
-        variable Pay        : signed (8 downto 0) := "000000000"; -- Amount that has been paid
+        variable Pay        : signed (8 downto 0) := RSTPay; -- Amount that has been paid
         begin
             case (Money) is
                 when "0000" => -- no Payment being made

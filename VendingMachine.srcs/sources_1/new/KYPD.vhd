@@ -126,7 +126,7 @@ begin
     
     FourDigitFlop : process (CLK, ButtonSig, Valid, NoButton, RST) -- 4 bit flop to deal with no valid inputs and where there is no button being pushed
     begin
-        if (RST = '0') then -- asynchronous reset
+        if (RST = '1') then -- asynchronous reset
             Button <= "0000"; -- reset Button to default value, which is 0000
         elsif (rising_edge(CLK)) then
             if (Valid = '1') then

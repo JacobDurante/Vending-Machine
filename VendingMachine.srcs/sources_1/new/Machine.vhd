@@ -59,6 +59,7 @@ architecture Behavioral of Machine is
     signal Paid       : signed (8 downto 0); -- amount that has been paid
     signal Price      : signed (8 downto 0) := "010010110"; -- assign fixed price of $1.50, 010010110 = 1500
     Signal ChangeBack : signed (8 downto 0); -- signal for the Change
+    Signal RSTPay     : signed (8 downto 0); -- resets the payment when going from state 11 to 00
     
     component SevenSegmentDisplay Port ( InputPrice   : in signed (8 downto 0); -- This will need to be updated
                                          CLK     : in STD_LOGIC;
@@ -74,14 +75,15 @@ architecture Behavioral of Machine is
     end component;
     
     component Payment Port ( Money  : in std_logic_vector (3 downto 0); -- 3 is Dollars, 2 is Quarters, 1 is Dimes, 0 is Nickles
-                             Paid    : out signed (8 downto 0);
+                             RSTPay : in signed (8 downto 0);
+                             Paid   : out signed (8 downto 0);
                              Change : out signed (8 downto 0));
     end component;
     
-    component ThreeSecCounter Port ( CLK   : in STD_LOGIC;
-                                    Start : in STD_LOGIC;
-                                    Stop  : out STD_LOGIC);
-    end component;
+--    component ThreeSecCounter Port ( CLK   : in STD_LOGIC;
+--                                    Start : in STD_LOGIC;
+--                                    Stop  : out STD_LOGIC);
+--    end component;
     
 begin
     --Price <= "010010110";
@@ -114,13 +116,14 @@ begin
     -- Ports the Payment module, sending the output from the module to the Dif signal 
     AmountPaid : Payment port map (
         Money  => MoneyIn,
+        RSTPay => RSTPay,
         Paid   => Paid,
         Change => ChangeBack);
         
-    Counter : ThreeSecCounter port map (
-        CLK   => CLK,
-        Start => StartCount,
-        Stop  => EndCount);
+--    Counter : ThreeSecCounter port map (
+--        CLK   => CLK,
+--        Start => StartCount,
+--        Stop  => EndCount);
      
 
         
@@ -177,6 +180,7 @@ begin
                     if (EndCount <= '1') then
                         NS <= "00";
                         StartCount <= '0';
+                        RSTPay <= "000000000";
                     else
                         NS <= "11";
                     end if;
@@ -258,19 +262,41 @@ begin
 --                        testSelection <= "000000";
             end case;   
             
-        case (selected) is
-            when '1' =>
-                StartCount <= '1';
-                if (EndCount <= '1') then
+        if (selected = '1') then
+            if (StartCount = '1') then
+                if (endCount <= '1') then
                     StartCount <= '0';
                     Selection <= SelectedChoice;
                     EndBus <= "000";
                 end if;
-            when others =>
-                StartCount <= '0';
-        end case;
+            end if;
+--            case (StartCount) is
+--                when '1' =>
+--                    if (EndCount <= '1') then
+--                        StartCount <= '0';
+--                        Selection <= SelectedChoice;
+--                        EndBus <= "000";
+--                    end if;
+--                when others =>
+--                    NextBus <= "000";
+--            end case;
+        end if;
     end process;
     
-    
+    ThreeSecCounter : process (CLK)
+        variable count : unsigned (31 downto 0) := "00000000000000000000000000000000";
+        begin
+            if (StartCount = '1') then
+                if (rising_edge(CLK)) then
+                    if (count = "00001000111100110001110000000110") then
+                        count := "00000000000000000000000000000000";
+                            EndCount <= '1';
+                    else
+                        count := count + 1;
+                            EndCount <= '0';
+                    end if;
+                end if;
+            end if;
+    end process;
     
 end Behavioral;
