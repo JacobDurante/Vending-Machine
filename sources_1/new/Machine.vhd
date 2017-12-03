@@ -54,6 +54,7 @@ architecture Behavioral of Machine is
     signal NextBus    : std_logic_vector (2 downto 0);
     Signal StartCount : std_logic;
     Signal EndCount   : std_logic;
+    signal PulseOut   : std_logic_vector (3 downto 0);
     Signal Selection  : std_logic_vector (7 downto 0); -- selection for vending machine, 7-4 is Row, 3-0 is Col
     Signal Change     : signed (8 downto 0); -- amount that you have paid or change back
     signal Paid       : signed (8 downto 0); -- amount that has been paid
@@ -85,6 +86,11 @@ architecture Behavioral of Machine is
 --                                    Stop  : out STD_LOGIC);
 --    end component;
     
+    component Debounce Port ( CLK     : in std_logic;
+                              Reset     : in std_logic;
+                              button_in : in std_logic_vector (3 downto 0);
+                              pulse_out : out std_logic_vector (3 downto 0));
+    end component;
 begin
     --Price <= "010010110";
     -- updates the present state on the clock edges
@@ -115,7 +121,7 @@ begin
     
     -- Ports the Payment module, sending the output from the module to the Dif signal 
     AmountPaid : Payment port map (
-        Money  => MoneyIn,
+        Money  => PulseOut,
         RSTPay => RSTPay,
         Paid   => Paid,
         Change => ChangeBack);
@@ -125,14 +131,22 @@ begin
 --        Start => StartCount,
 --        Stop  => EndCount);
      
+     -- Ports the buttons to the debounce
+     ButtonDebounce : Debounce port map (
+        CLK => CLK,
+        Reset => RequestChange,
+        button_in => MoneyIn,
+        pulse_out => PulseOut);
+        
+        
 
         
-    logic : process (PS, RequestChange, MoneyIn, Paid, StartCount, EndCount, StartBus)
+    logic : process (PS, RequestChange, PulseOut, Paid, StartCount, EndCount, StartBus)
     variable count : unsigned (31 downto 0) := "00000000000000000000000000000000";
     begin
         case (PS) is
             when "00" => -- state 0
-                case (MoneyIn) is
+                case (PulseOut) is
                     when "0000" => NS <= "00";
                     when "0001" => NS <= "01";
                     when "0010" => NS <= "01";
