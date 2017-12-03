@@ -33,11 +33,12 @@ use IEEE.NUMERIC_STD.ALL;
 
 
 entity DeBounce is
-   port( CLK     : in std_logic;
+   port( CLK       : in std_logic;
          Reset     : in std_logic;
          button_in : in std_logic_vector (3 downto 0);
-         pulse_out : out std_logic_vector (3 downto 0)
-       );
+         KYPDIn    : in std_logic_vector (7 downto 0);
+         KYPDOut   : out std_logic_vector (7 downto 0);
+         pulse_out : out std_logic_vector (3 downto 0));
 end DeBounce;
 
 architecture behav of DeBounce is
@@ -62,14 +63,30 @@ begin
   elsif(rising_edge(CLK)) then
        case (state) is
            when idle =>
-               if(button_in(0) = BTN_ACTIVE) then  
-                   state <= wait_time;
-               elsif(button_in(1) = BTN_ACTIVE) then  
-                   state <= wait_time;
-               elsif(button_in(2) = BTN_ACTIVE) then  
-                   state <= wait_time;
-               elsif(button_in(3) = BTN_ACTIVE) then  
-                   state <= wait_time;                                   
+                if(button_in(0) = BTN_ACTIVE) then  
+                    state <= wait_time;
+                elsif(button_in(1) = BTN_ACTIVE) then  
+                    state <= wait_time;
+                elsif(button_in(2) = BTN_ACTIVE) then  
+                    state <= wait_time;
+                elsif(button_in(3) = BTN_ACTIVE) then  
+                    state <= wait_time; 
+                elsif (KYPDIn(7) = BTN_ACTIVE) then
+                    state <= wait_time;
+                elsif (KYPDIn(6) = BTN_ACTIVE) then
+                    state <= wait_time;
+                elsif (KYPDIn(5) = BTN_ACTIVE) then
+                    state <= wait_time;
+                elsif (KYPDIn(4) = BTN_ACTIVE) then
+                    state <= wait_time;
+                elsif (KYPDIn(3) = BTN_ACTIVE) then
+                    state <= wait_time;
+                elsif (KYPDIn(2) = BTN_ACTIVE) then
+                    state <= wait_time;
+                elsif (KYPDIn(1) = BTN_ACTIVE) then
+                    state <= wait_time;
+                elsif (KYPDIn(0) = BTN_ACTIVE) then
+                    state <= wait_time;
                else
                    state <= idle; --wait until button is pressed.
                end if;
@@ -86,6 +103,22 @@ begin
                        pulse_out <= "0010";
                    elsif(button_in(3) = BTN_ACTIVE) then
                        pulse_out <= "1000";
+                   elsif (KYPDIn(7) = BTN_ACTIVE) then
+                       KYPDOut <= "10000000";
+                   elsif (KYPDIn(6) = BTN_ACTIVE) then
+                       KYPDOut <= "01000000";
+                   elsif (KYPDIn(5) = BTN_ACTIVE) then
+                       KYPDOut <= "00100000";
+                   elsif (KYPDIn(4) = BTN_ACTIVE) then
+                       KYPDOut <= "00010000";
+                   elsif (KYPDIn(3) = BTN_ACTIVE) then
+                       KYPDOut <= "00001000";
+                   elsif (KYPDIn(2) = BTN_ACTIVE) then
+                       KYPDOut <= "00000100";
+                   elsif (KYPDIn(1) = BTN_ACTIVE) then
+                       KYPDOut <= "00000010";
+                   elsif (KYPDIn(0) = BTN_ACTIVE) then
+                       KYPDOut <= "00000001"; 
                    end if;
                    state <= idle;  
                else
